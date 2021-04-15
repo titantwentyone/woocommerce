@@ -97,7 +97,7 @@ abstract class AbstractServiceProvider extends BaseServiceProvider {
 		if ( ! isset( $concrete ) || is_string( $concrete ) && class_exists( $concrete ) ) {
 			try {
 				$class  = $concrete ?? $class_name;
-				$method = new \ReflectionMethod( $class, Definition::INJECTION_METHOD );
+				$method = method_exists($class, Definition::INJECTION_METHOD) ? new \ReflectionMethod( $class, Definition::INJECTION_METHOD ) : null;
 				if ( ! isset( $method ) ) {
 					return null;
 				}
